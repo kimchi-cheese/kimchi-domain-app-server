@@ -38,3 +38,7 @@ out/
 
 ### Apple ###
 .DS_Store
+
+### hidden file ###
+hidden/
+src/main/resources/properties/env.properties
