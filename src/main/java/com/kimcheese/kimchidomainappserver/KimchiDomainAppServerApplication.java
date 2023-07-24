@@ -28,9 +28,9 @@ public class KimchiDomainAppServerApplication {
 	@GetMapping("/domain/login/oauth2/code/{registrationId}")
 	public String googleLogin(
 			@RequestParam("code") String code,
-			@RequestParam("scope") String scope,
-			@RequestParam("authuser") String authuser,
-			@RequestParam("prompt") String prompt,
+			@RequestParam(value = "scope",required = false) String scope,
+			@RequestParam(value = "authuser",required = false) String authuser,
+			@RequestParam(value = "prompt",required = false) String prompt,
 			@PathVariable String registrationId){
 		System.out.println(code);
 		System.out.println(scope);

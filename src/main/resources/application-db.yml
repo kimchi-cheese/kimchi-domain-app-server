@@ -1,0 +1,4 @@
+firebase:
+  service:
+    account:
+      key: hidden/serviceAccountKey.json

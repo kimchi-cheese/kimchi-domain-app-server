@@ -1,5 +1,5 @@
-package com.kimcheese.kimchidomainappserver.core.config;
-
+//package com.kimcheese.kimchidomainappserver.core.config;
+//
 //import lombok.RequiredArgsConstructor;
 //import org.springframework.context.annotation.Bean;
 //import org.springframework.context.annotation.Configuration;
@@ -9,7 +9,7 @@ package com.kimcheese.kimchidomainappserver.core.config;
 //import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 //import org.springframework.security.config.http.SessionCreationPolicy;
 //import org.springframework.security.web.SecurityFilterChain;
-
+//
 //@Configuration
 //@EnableWebSecurity
 //@RequiredArgsConstructor
@@ -21,6 +21,7 @@ package com.kimcheese.kimchidomainappserver.core.config;
 //        return http
 //                .httpBasic((basic) -> basic.disable())
 //                .csrf((csrf) -> csrf.disable())
+//                .formLogin((user)->user.disable())
 //                .sessionManagement((session)->
 //                    session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 //                )
@@ -31,20 +32,25 @@ package com.kimcheese.kimchidomainappserver.core.config;
 //                                .requestMatchers("/**").permitAll()
 //                                .anyRequest().authenticated()
 //                )
-//                .formLogin((user)->
-//                        user
-//                        .usernameParameter("login")
-//                        .passwordParameter("password")
-//                        .loginPage("/security-login/login")
-//                        .defaultSuccessUrl("/security-login")
-//                        .failureUrl("/security-login/login")
+//                .oauth2Login((user)->user
+//                        .successHandler()
+//                        .userInfoEndpoint((userinfo)->userinfo.userService())
 //                )
-//                .logout((logout) -> logout
-//                        .logoutUrl("/security-login/logout")
-//                )
-//
 //
 //                .build();
+//
+////                .logout((logout) -> logout
+////                        .logoutUrl("/security-login/logout")
+////                )
+////                .formLogin((user)->
+////                        user
+////                                .usernameParameter("login")
+////                                .passwordParameter("password")
+////                                .loginPage("/security-login/login")
+////                                .defaultSuccessUrl("/security-login")
+////                                .failureUrl("/security-login/login")
+////                )
+////                .build();
 //
 //
 //
