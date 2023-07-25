@@ -12,6 +12,7 @@ spring:
 
     include:
       - db
+      - secret
 
 
 eureka:

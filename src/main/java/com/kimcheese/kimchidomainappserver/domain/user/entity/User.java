@@ -1,5 +1,6 @@
 package com.kimcheese.kimchidomainappserver.domain.user.entity;
 
+import com.kimcheese.kimchidomainappserver.core.mixin.TimestampMixin;
 import com.kimcheese.kimchidomainappserver.domain.user.vo.Role;
 import com.kimcheese.kimchidomainappserver.domain.user.vo.SocialType;
 
@@ -13,11 +14,11 @@ import java.util.Map;
 
 @Getter
 @Setter
-public class User {
+public class User extends TimestampMixin {
     private String _id;
     private String email;
     private String password;
-    private int age = 0;
+    private int age = -1;
 
     @Enumerated(EnumType.STRING)
     private Role role;
@@ -25,10 +26,11 @@ public class User {
     @Enumerated(EnumType.STRING)
     private SocialType socialType;
 
-    private String refreshToken;
-
     private String profilePath;
     
-    private List<Map<String,Object>> photoIds; // 내 보관함 사진 모음
+    private List<Map<String,Object>> photoBoothIds; // 내 보관함 사진 모음
+    // _id
 
+
+    private String refreshToken;
 }

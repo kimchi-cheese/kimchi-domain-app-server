@@ -1,6 +1,6 @@
-package com.kimcheese.kimchidomainappserver.domain.region.entity.vo;
+package com.kimcheese.kimchidomainappserver.domain.location.vo;
 
-public enum RegionName {
+public enum Region {
     SEOUL,
     BUSAN,
     DAEGU,
