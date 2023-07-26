@@ -1,4 +1,6 @@
 spring:
+  main:
+    allow-bean-definition-overriding: true
   application:
     name: kimchi-domain-app-service
   profiles:
@@ -23,3 +25,13 @@ eureka:
       defaultZone: http://127.0.0.1:8761/eureka
   instance:
     instance-id: ${spring.cloud.client.hostname}:${spring.application.instance_id:${random.value}}
+
+jwt:
+  secretKey: 92Tl89VinL7D2VjA
+  access:
+    expiration: 3600000
+    header: Authorization
+
+  refresh:
+    expiration: 1209600000
+    header: Authorization-refresh

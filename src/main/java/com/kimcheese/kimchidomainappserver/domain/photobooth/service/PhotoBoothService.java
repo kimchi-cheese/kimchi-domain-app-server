@@ -21,13 +21,13 @@ public class PhotoBoothService {
 
     private final PhotoBoothRepository repository;
 
-     public ArrayList<GetPhotoBooth> getPhotoBooth(String regionValue, String startAfter) throws Exception{
+     public ArrayList<GetPhotoBooth> getPhotoBooth(String fieldName, String fieldValue, String startAfter) throws Exception{
          List<QueryDocumentSnapshot> documents;
          if (startAfter == null){
-             documents = repository.findByField("region",regionValue);
+             documents = repository.findByField(fieldName,fieldValue);
          }
          else{
-             documents = repository.findByFieldWithStartAfter("region",regionValue,startAfter);
+             documents = repository.findByFieldWithStartAfter(fieldName,fieldValue,startAfter);
          }
          ArrayList<GetPhotoBooth> photoBooths = new ArrayList<>();
          for (DocumentSnapshot document : documents) {

@@ -3,13 +3,12 @@ package com.kimcheese.kimchidomainappserver;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @SpringBootApplication
 @EnableDiscoveryClient
@@ -38,5 +37,17 @@ public class KimchiDomainAppServerApplication {
 		System.out.println(prompt);
 		System.out.println(registrationId);
 		return code;
+	}
+
+	@PostMapping("/upload")
+	public String handleFileUpload(@RequestParam("file") MultipartFile file) {
+		try {
+			// 파일 처리 로직을 구현합니다.
+			// 예를 들어, 파일을 저장하거나 다른 작업을 수행할 수 있습니다.
+			// 여기서는 간단히 파일 이름을 반환합니다.
+			return "Uploaded file: " + file.getOriginalFilename();
+		} catch (Exception e) {
+			return "Error uploading file: " + e.getMessage();
+		}
 	}
 }

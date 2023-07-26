@@ -20,6 +20,7 @@ public class PhotoBooth extends TimestampMixin {
     public static final String TABLENAME = "PhotoBooths";
 
     private String _id;
+    private String email;
     private String userId;
     private String username;
 
