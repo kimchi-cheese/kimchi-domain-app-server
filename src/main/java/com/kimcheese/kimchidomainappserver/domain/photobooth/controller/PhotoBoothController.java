@@ -35,11 +35,6 @@ public class PhotoBoothController {
     private final PhotoBoothService photoBoothService;
     private final JwtService jwtService;
 
-    @GetMapping("info")
-    public String getInfo(){
-        return "Hello PhotoBooth";
-    }
-
     @GetMapping("")
     public ResponseEntity<BaseResponse<List<GetPhotoBooth>>> getPhotoBoothsWithRegion(@RequestParam Region region, @RequestParam(required = false) String startAfter) throws Exception{
 
@@ -74,4 +69,5 @@ public class PhotoBoothController {
         HttpStatus httpstatus = HttpStatus.OK;
         return new ResponseEntity<>(new BaseResponse<>(httpstatus, getPhotoBooths), null, httpstatus);
     }
+
 }

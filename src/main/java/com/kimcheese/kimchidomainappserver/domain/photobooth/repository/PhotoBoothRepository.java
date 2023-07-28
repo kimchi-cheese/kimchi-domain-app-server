@@ -5,11 +5,14 @@ import com.google.cloud.firestore.*;
 import com.google.firebase.cloud.FirestoreClient;
 import com.kimcheese.kimchidomainappserver.core.repository.BaseRepository;
 import com.kimcheese.kimchidomainappserver.core.util.DocumentIdCryptoUtil;
+import com.kimcheese.kimchidomainappserver.core.util.FirebaseDocumentIdGenUtil;
 import com.kimcheese.kimchidomainappserver.domain.photobooth.entity.PhotoBooth;
+import com.kimcheese.kimchidomainappserver.domain.user.entity.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class PhotoBoothRepository implements BaseRepository<PhotoBooth> {
@@ -20,9 +23,9 @@ public class PhotoBoothRepository implements BaseRepository<PhotoBooth> {
     @Override
     public List<QueryDocumentSnapshot> findByField(String fieldName, Object fieldValue) throws Exception {
         Firestore firestore = FirestoreClient.getFirestore();
-        CollectionReference photoBoothRef = firestore.collection(PhotoBooth.TABLENAME);
+        CollectionReference collectionRef = firestore.collection(PhotoBooth.TABLENAME);
 
-        Query query = photoBoothRef
+        Query query = collectionRef
                 .whereEqualTo(fieldName, fieldValue);
 //                .orderBy("timestamp", Query.Direction.DESCENDING)
 //                .limit(boothLimit);
@@ -34,9 +37,9 @@ public class PhotoBoothRepository implements BaseRepository<PhotoBooth> {
 
     public List<QueryDocumentSnapshot> findByFieldWithStartAfter(String fieldName, Object fieldValue, String startAfter) throws Exception {
         Firestore firestore = FirestoreClient.getFirestore();
-        CollectionReference photoBoothRef = firestore.collection(PhotoBooth.TABLENAME);
+        CollectionReference collectionRef = firestore.collection(PhotoBooth.TABLENAME);
 
-        Query query = photoBoothRef
+        Query query = collectionRef
                 .whereEqualTo(fieldName, fieldValue)
                 .orderBy("timestamp", Query.Direction.DESCENDING)
                 .startAfter(new DocumentIdCryptoUtil().decrypt(startAfter))
@@ -45,6 +48,19 @@ public class PhotoBoothRepository implements BaseRepository<PhotoBooth> {
         ApiFuture<QuerySnapshot> querySnapshot = query.get();
         List<QueryDocumentSnapshot> documents = querySnapshot.get().getDocuments();
         return documents;
+    }
+
+    public Optional<PhotoBooth> save(PhotoBooth photoBooth) throws Exception{
+        Firestore firestore = FirestoreClient.getFirestore();
+        CollectionReference collectionRef = firestore.collection(PhotoBooth.TABLENAME);
+        String uuid = FirebaseDocumentIdGenUtil.generateUUID(collectionRef);
+        photoBooth.set_id(uuid);
+        ApiFuture<WriteResult> apiFuture =
+                collectionRef.document(uuid).set(photoBooth);
+
+        System.out.println(apiFuture.isDone());
+
+        return Optional.of(photoBooth);
     }
 }
 

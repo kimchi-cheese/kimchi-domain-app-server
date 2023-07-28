@@ -11,10 +11,10 @@ import java.time.ZoneId;
 @Getter
 @Setter
 public class TimestampMixin {
-    private Timestamp createdAt;
-    private Timestamp updatedAt;
+    private Timestamp createdAt = Timestamp.now();
+    private Timestamp updatedAt = Timestamp.now();
     private Timestamp deletedAt;
-    private Boolean isDeleted;
+    private Boolean isDeleted = false;
 
 //    public void gets(){
 //        LocalDate.now(ZoneId.of("UTC"));

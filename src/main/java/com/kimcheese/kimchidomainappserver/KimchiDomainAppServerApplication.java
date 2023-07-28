@@ -1,17 +1,18 @@
 package com.kimcheese.kimchidomainappserver;
 
-import jakarta.servlet.http.HttpServletResponse;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+// import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 @SpringBootApplication
-@EnableDiscoveryClient
+// @EnableDiscoveryClient
 @RestController
 public class KimchiDomainAppServerApplication {
 
@@ -39,7 +40,7 @@ public class KimchiDomainAppServerApplication {
 		return code;
 	}
 
-	@PostMapping("/upload")
+	@PostMapping("/domain/upload")
 	public String handleFileUpload(@RequestParam("file") MultipartFile file) {
 		try {
 			// 파일 처리 로직을 구현합니다.
@@ -50,4 +51,38 @@ public class KimchiDomainAppServerApplication {
 			return "Error uploading file: " + e.getMessage();
 		}
 	}
+
+
+	@PostMapping("/oauth2/posttest")
+	@CrossOrigin(origins = {"*"},allowedHeaders = {"*"})
+	public String postTest(@RequestBody PostTest postTest) {
+		System.out.println(postTest.name);
+		System.out.println(postTest.password);
+
+		return postTest.name+postTest.password;
+	}
+
+	@GetMapping("/domain/accesstoken/test")
+	public String accessTokenTest(){
+		return "요청 AccessToken 테스트";
+	}
+
+	@GetMapping("/domain/oauth2/sign-up")
+	public String auth(){
+		return "Success";
+	}
+
+	@GetMapping("/oauth2/test")
+	public String oauth2test(){
+		return "oauth2 test";
+	}
+
+}
+
+@Getter
+@Setter
+@AllArgsConstructor
+class PostTest {
+	public String name;
+	public String password;
 }

@@ -1,4 +1,0 @@
-#Google
-spring.security.oauth2.client.registration.google.client-id=184647744436-ql3li1i1u6sv4f9ohnehfpjgbma3r8og.apps.googleusercontent.com
-spring.security.oauth2.client.registration.google.client-secret=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
-spring.security.oauth2.client.registration.google.redirect-uri=http://localhost:53811/login/domain/oauth2/code/google

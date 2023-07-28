@@ -2,6 +2,7 @@ package com.kimcheese.kimchidomainappserver.core.security.jwt.service;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.kimcheese.kimchidomainappserver.domain.user.entity.User;
 import com.kimcheese.kimchidomainappserver.domain.user.repository.UserRepository;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -44,7 +45,7 @@ public class JwtService {
     private static final String EMAIL_CLAIM = "email";
     private static final String BEARER = "Bearer ";
 
-//    private final UserRepository userRepository;
+    private final UserRepository userRepository;
 
     /**
      * AccessToken 생성 메소드
@@ -117,9 +118,6 @@ public class JwtService {
      */
     public Optional<String> extractAccessToken(HttpServletRequest request) {
         log.info("JWT Service: access-token 추출");
-        System.out.println(Optional.ofNullable(request.getHeader(accessHeader))
-                .filter(refreshToken -> refreshToken.startsWith(BEARER))
-                .map(refreshToken -> refreshToken.replace(BEARER, "")));
 
         return Optional.ofNullable(request.getHeader(accessHeader))
                 .filter(refreshToken -> refreshToken.startsWith(BEARER))
@@ -164,13 +162,20 @@ public class JwtService {
     /**
      * RefreshToken DB 저장(업데이트)
      */
-//    public void updateRefreshToken(String email, String refreshToken) {
-//        userRepository.findByEmail(email)
-//                .ifPresentOrElse(
-//                        user -> user.updateRefreshToken(refreshToken),
-//                        () -> new Exception("일치하는 회원이 없습니다.")
-//                );
-//    }
+    public void updateRefreshToken(String email, String refreshToken) throws Exception {
+        userRepository.findByEmail(email)
+                .ifPresentOrElse(
+                        user -> {
+                            user.updateRefreshToken(refreshToken);
+                            try {
+                                userRepository.update(user);
+                            } catch (Exception e) {
+                                throw new RuntimeException(e);
+                            }
+                        },
+                        () -> new Exception("일치하는 회원이 없습니다.")
+                );
+    }
 
     public boolean isTokenValid(String token) {
         try {
