@@ -49,12 +49,11 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-
         http
                 .httpBasic((basic) -> basic.disable())
                 .formLogin((user)-> user.disable())
                 .csrf((csrf) -> csrf.disable())
-                .cors((cors) -> cors.configurationSource(corsConfigurationSource()))
+
                 .headers((f)->
                         f.frameOptions(
                                 o -> o.disable()
@@ -65,8 +64,9 @@ public class SecurityConfig {
                 )
                 .authorizeHttpRequests((authorizeRequests) ->
                         authorizeRequests
-                                .requestMatchers("/","/css/**","/images/**","/js/**","/favicon.ico","/h2-console/**").permitAll()
-                                .requestMatchers("/sign-up","/oauth2/sign-up","/lemon/sign-up","/domain/**").permitAll()
+                                .requestMatchers("/","/css/**","/images/**","/js/**","/favicon.ico","/h2-console/**","/error").permitAll()
+                                .requestMatchers("/sign-up","/oauth2/sign-up","/domain/**").permitAll()
+                                .requestMatchers("/swagger-ui/**","/swagger-ui.html","/swagger-resources/**","/v3/api-docs/**").permitAll()
                                 .requestMatchers("/**").authenticated()
                 )
                 .oauth2Login((user)->user
@@ -139,16 +139,16 @@ public class SecurityConfig {
         return jwtAuthenticationFilter;
     }
 
-    public CorsConfigurationSource corsConfigurationSource(){
-        CorsConfiguration configuration = new CorsConfiguration();
-
-        configuration.addAllowedOrigin("*");
-        configuration.addAllowedHeader("*");
-        configuration.addAllowedMethod("*");
-        configuration.setAllowCredentials(true);
-
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
-    }
+//    public CorsConfigurationSource corsConfigurationSource(){
+//        CorsConfiguration configuration = new CorsConfiguration();
+//
+//        configuration.addAllowedOrigin("*");
+//        configuration.addAllowedHeader("*");
+//        configuration.addAllowedMethod("*");
+//        configuration.setAllowCredentials(true);
+//
+//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+//        source.registerCorsConfiguration("/**", configuration);
+//        return source;
+//    }
 }

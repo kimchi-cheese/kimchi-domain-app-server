@@ -1,5 +1,6 @@
 package com.kimcheese.kimchidomainappserver.domain.photo.entity;
 
+import com.google.cloud.firestore.DocumentReference;
 import com.kimcheese.kimchidomainappserver.core.mixin.TimestampMixin;
 import com.kimcheese.kimchidomainappserver.domain.location.vo.Country;
 import lombok.Getter;
@@ -14,9 +15,11 @@ import jakarta.persistence.Enumerated;
 @Getter
 @Setter
 public class Photo extends TimestampMixin {
+    public static final String TABLENAME = "Photos";
+
     private String _id;
     private String username;
-    private String userId;
+    private DocumentReference userId;
     private String imageUrl;
 
     @Enumerated(EnumType.STRING)

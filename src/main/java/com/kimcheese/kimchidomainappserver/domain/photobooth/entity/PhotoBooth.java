@@ -1,5 +1,6 @@
 package com.kimcheese.kimchidomainappserver.domain.photobooth.entity;
 
+import com.google.cloud.firestore.DocumentReference;
 import com.kimcheese.kimchidomainappserver.core.mixin.TimestampMixin;
 import com.kimcheese.kimchidomainappserver.domain.location.vo.Country;
 import com.kimcheese.kimchidomainappserver.domain.user.vo.Role;
@@ -23,10 +24,10 @@ public class PhotoBooth extends TimestampMixin {
 
     private String _id;
     private String email;
-    private String userId;
+    private DocumentReference userId;
     private String username;
 
-    private int hRate = 1;
+    private List<Map<String,Object>> hrate;
 
     @Enumerated(EnumType.STRING)
     private Country country;
@@ -35,6 +36,8 @@ public class PhotoBooth extends TimestampMixin {
     private Region region;
 
     private String location;
+
+    private String formattedAddress;
 
     private Map<String, Float> gps;
 

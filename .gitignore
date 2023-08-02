@@ -41,4 +41,10 @@ out/
 
 ### hidden file ###
 hidden/
-src/main/resources/properties/env.properties
+
+### resources ###
+application-auth.yml
+application-db.yml
+application-auth.yml
+application-secret.yml
+application-s

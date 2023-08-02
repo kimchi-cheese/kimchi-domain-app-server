@@ -60,6 +60,12 @@ public class UserRepository {
         return Optional.of(user);
     }
 
+    public DocumentReference getUserRef(User user){
+        Firestore firestore = FirestoreClient.getFirestore();
+        DocumentReference userDocumentRef = firestore.collection(User.TABLENAME).document(user.get_id());
+        return userDocumentRef;
+    }
+
     private Optional<User> getUser(Query query) throws InterruptedException, java.util.concurrent.ExecutionException {
         ApiFuture<QuerySnapshot> querySnapshot = query.get();
         List<QueryDocumentSnapshot> documentList = querySnapshot.get().getDocuments();
@@ -73,6 +79,8 @@ public class UserRepository {
             return Optional.ofNullable(null);
         }
     }
+
+
 
 
 }
